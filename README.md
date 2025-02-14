@@ -30,7 +30,6 @@ A Python-based tool to check HTTP/HTTPS responses and resolve IP addresses for a
    pip install -r requirements.txt
 
 3. 🛠️ Usage:
-   Prepare a text file (e.g., hosts.txt) with a list of domains or URLs, one per line.
    ```bash
    python app.py
 
