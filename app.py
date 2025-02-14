@@ -15,28 +15,8 @@ console = Console()
 def display_banners():
     console.clear()
     banner_text = "[bold green]SSLABLK Checker Tool[/bold green]"
-    ascii_art = """
-       (`.  : \\               __..----..__
-        `.`.| |:          _,-':::''' '  `:`-._
-          `.:\||       _,':::::'         `::::`-.
-            \\`|    _,':::::::'     `:.     `':::`.
-             ;` `-''  `::::::.                  `::\\
-          ,-'      .::'  `:::::.         `::..    `:\\
-        ,' /_) -.            `::.           `:.     |
-      ,'.:     `    `:.        `:.     .::.          \\
- __,-'   ___,..-''-.  `:.        `.   /::::.         |
-|):'_,--'           `.    `::..       |::::::.      ::\\
- `-'                 |`--.:_::::|_____\\::::::::.__  ::|
-                     |   _/|::::|      \\::::::|::/\\  :|
-                     /:./  |:::/        \\__:::):/  \\  :\\
-                   ,'::'  /:::|        ,'::::/_/    `. ``-.__
-     KUDDA VPN    ''''   (//|/\\      ,';':,-'         `-.__  `'--..__
-                                                           `''---::::'
-    """
     centered_banner = Align.center(banner_text)
-    centered_ascii = Align.center(ascii_art)
     console.print(centered_banner)
-    console.print(centered_ascii)
 
 def get_domain_ip(domain):
     try:
@@ -213,7 +193,6 @@ def display_menu():
     console.print(panel)
 
 def main():
-    display_banners()
     display_banner()
     display_menu()
     choice = Prompt.ask("Enter your choice", choices=["1", "2"], default="1")
