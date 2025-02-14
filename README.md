@@ -47,11 +47,12 @@ Watch the How to Use Video 📽️ for a step-by-step guide.
 
 📢 Telegram Channel
 Join our Telegram channel for updates and support:
-🔗 [Link Text](https://t.me/shaystudiolab)
+🔗 [Channel](https://t.me/shaystudiolab)
 
 📞 Contact
 Reach out to me on Telegram:
-👤 [Link Text](https://t.me/ShayC21)
+👤 [Dev](https://t.me/ShayC21)
+👤 [Dev](https://github.com/ThiyansaRavidu)
 
 
 🤝 Open Source Contribution
