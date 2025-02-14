@@ -42,7 +42,8 @@ Follow the on-screen menu to:
 ## 📹 How to Use Video
 Watch the How to Use Video 📽️ for a step-by-step guide.
 
-<iframe src="https://player.vimeo.com/video/1056691723?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="2044" height="1080" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" title="SSLABLK-Checker"></iframe>
+[![SSLABLK Checker Video](https://i.vimeocdn.com/video/1056691723_640.jpg)](https://vimeo.com/1056691723)
+
 
 
 📢 Telegram Channel
