@@ -24,22 +24,19 @@ A Python-based tool to check HTTP/HTTPS responses and resolve IP addresses for a
    ```bash
    git clone https://github.com/noobconner21/SSLABLK-Checker.git
    cd SSLABLK-Checker
+
 2. Install the required libraries:
+   ```bash
+   pip install -r requirements.txt
 
-  ```bash
-    pip install -r requirements.txt
-3. 🛠️ Usage
-Prepare a text file (e.g., hosts.txt) with a list of domains or URLs, one per line.
-
-Run the tool:
-
-    ```bash
-      python sslablk_checker.py
+3. 🛠️ Usage:
+   Prepare a text file (e.g., hosts.txt) with a list of domains or URLs, one per line.
+   ```bash
+   python app.py
 
 Follow the on-screen menu to:
 
 🌐 Check HTTP/HTTPS responses for hosts.
-
 🔍 Resolve IP addresses for hosts.
 
 📹 How to Use Video
