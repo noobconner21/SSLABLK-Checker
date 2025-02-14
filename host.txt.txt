@@ -1,0 +1,4 @@
+google.com
+zoom.us
+facebook.com
+youtube.com
