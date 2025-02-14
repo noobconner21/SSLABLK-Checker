@@ -6,12 +6,40 @@ from rich.progress import track
 from rich.prompt import Prompt
 from rich.panel import Panel
 from rich.align import Align
+from rich.console import Console
+from rich.panel import Panel
+from rich.align import Align
 
 console = Console()
 
+def display_banners():
+    console.clear()
+    banner_text = "[bold green]SSLABLK Checker Tool[/bold green]"
+    ascii_art = """
+       (`.  : \\               __..----..__
+        `.`.| |:          _,-':::''' '  `:`-._
+          `.:\||       _,':::::'         `::::`-.
+            \\`|    _,':::::::'     `:.     `':::`.
+             ;` `-''  `::::::.                  `::\\
+          ,-'      .::'  `:::::.         `::..    `:\\
+        ,' /_) -.            `::.           `:.     |
+      ,'.:     `    `:.        `:.     .::.          \\
+ __,-'   ___,..-''-.  `:.        `.   /::::.         |
+|):'_,--'           `.    `::..       |::::::.      ::\\
+ `-'                 |`--.:_::::|_____\\::::::::.__  ::|
+                     |   _/|::::|      \\::::::|::/\\  :|
+                     /:./  |:::/        \\__:::):/  \\  :\\
+                   ,'::'  /:::|        ,'::::/_/    `. ``-.__
+     KUDDA VPN    ''''   (//|/\\      ,';':,-'         `-.__  `'--..__
+                                                           `''---::::'
+    """
+    centered_banner = Align.center(banner_text)
+    centered_ascii = Align.center(ascii_art)
+    console.print(centered_banner)
+    console.print(centered_ascii)
+
 def get_domain_ip(domain):
     try:
-        # Clean the domain string and resolve the IP.
         domain = domain.replace('http://', '').replace('https://', '').split('/')[0]
         ip = socket.gethostbyname(domain)
         return ip
@@ -20,17 +48,67 @@ def get_domain_ip(domain):
 
 def detect_cdn(headers, ip):
     cdn_providers = {
-        "Cloudflare": ["cf-ray", "cf-cache-status"],
-        "Akamai": ["akamai", "x-akamai-transformed"],
-        "Fastly": ["fastly", "x-fastly-request-id"],
-        "Google CDN": ["x-goog-meta"],
-        "BunnyCDN": ["bunnycdn", "server: bunnycdn"]
+        "Cloudflare": ["cf-ray", "cf-cache-status", "cf-connecting-ip"],
+        "Akamai": ["akamai", "x-akamai-transformed", "x-akamai-request-id"],
+        "Fastly": ["fastly", "x-fastly-request-id", "x-fastly-cache-status"],
+        "Google CDN": ["x-goog-meta", "x-google-backend", "x-goog-origin"],
+        "BunnyCDN": ["bunnycdn", "server: bunnycdn", "x-bunnycdn-cache-status"],
+        "KeyCDN": ["x-keycdn-request-id", "x-keycdn-cache-status"],
+        "Cloudfront": ["via", "x-cache", "x-amz-cf-id", "x-amz-cf-pop"],
+        "CDN77": ["cdn77", "x-cdn77-request-id", "x-cdn77-cache-status"],
+        "StackPath": ["x-stackpath", "stackpath", "x-stackpath-cdn"],
+        "Incapsula": ["x-incapsula", "incapsula", "x-incapsula-sid"],
+        "CacheFly": ["cachefly", "cf-cache-status", "x-cache"],
+        "Microsoft Azure CDN": ["x-ms-cdn", "x-azure-request-id", "x-ms-origin"],
+        "Cloudflare Stream": ["cf-stream", "cf-ray", "cf-cache-status"],
+        "ChinaCache": ["chinacache", "x-cdn-origin", "x-chinacache-request-id"],
+        "Rackspace CDN": ["rackcdn", "x-rackcdn-cache-status"],
+        "MaxCDN": ["maxcdn", "x-maxcdn-request-id", "x-maxcdn-cache-status"],
+        "CDN Planet": ["cdnplanet", "x-cdn-planet-id"],
+        "Imperva": ["x-imperva", "imperva", "x-imperva-cookie"],
+        "Level3": ["level3", "x-level3-cache-status"],
+        "Tencent Cloud CDN": ["tencentcloud", "x-tencent-cdn"],
+        "Varnish": ["via", "x-varnish", "x-varnish-request-id"],
+        "CDNify": ["cdnify", "x-cdnify-request-id"],
+        "ArvanCloud": ["x-arv-cdn-request-id", "arvancloud", "x-arvancloud-cache-status"],
+        "Sucuri": ["sucuri", "x-sucuri-cache"],
+        "Limelight Networks": ["limelight", "x-limelight-cache-status"],
+        "EdgeCast": ["edgecast", "x-edgecast-cache-status"],
+        "NetDNA": ["netdna", "x-netdna-cache-status"],
+        "F5": ["f5", "x-f5-cache-status"],
+        "QCDN": ["qcdn", "x-qcdn-cache-status"],
+        "Cloudflare Workers": ["cf-worker", "cf-ray", "cf-cache-status"],
+        "Alibaba Cloud CDN": ["aliyuncdn", "x-aliyun-cdn-cache-status"],
+        "Tata Communications CDN": ["tatacommunications", "x-tatacommunications-cache-status"],
+        "Fastly": ["fastly", "x-fastly-request-id", "x-fastly-cache-status"],
+        "Akamai CDN": ["akamai", "x-akamai-cache-status"],
+        "ChinaNetCenter": ["chinacache", "x-cdn-origin", "x-chinacache-request-id"],
+        "Edgecast CDN": ["edgecast", "x-edgecast-cache-status"],
+        "QCDN": ["qcdn", "x-qcdn-cache-status"],
+        "Jetpack CDN": ["jetpack", "x-jetpack-cache-status"],
+        "Webscale CDN": ["webscale", "x-webscale-cache-status"],
+        "CDNify": ["cdnify", "x-cdnify-cache-status"],
+        "Tata CDN": ["tatacdn", "x-tatacdn-cache-status"],
+        "MaxCDN": ["maxcdn", "x-maxcdn-request-id", "x-maxcdn-cache-status"],
+        "Edgecast": ["edgecast", "x-edgecast-cache-status"],
+        "QCDN": ["qcdn", "x-qcdn-cache-status"],
+        "Cloudflare": ["cf-ray", "cf-cache-status", "cf-connecting-ip"],
+        "F5": ["f5", "x-f5-cache-status"],
+        "ArvanCloud CDN": ["arvancloud", "x-arvancloud-cache-status"],
+        "Fastly": ["fastly", "x-fastly-cache-status"],
+        "ChinaCache": ["chinacache", "x-cdn-origin", "x-chinacache-request-id"],
+        "Level3 CDN": ["level3", "x-level3-cache-status"],
+        "CDN77": ["cdn77", "x-cdn77-cache-status"],
+        "Cloudfront": ["via", "x-cache", "x-amz-cf-id", "x-amz-cf-pop"],
+        "StackPath CDN": ["x-stackpath-cdn", "stackpath-cdn"],
+        "ArvanCloud CDN": ["x-arvancloud-cdn", "arvancloud-cdn"]
     }
-    
+
     for cdn, identifiers in cdn_providers.items():
         for key in identifiers:
             if key.lower() in [h.lower() for h in headers.keys()]:
                 return cdn
+
     return "Unknown"
 
 def check_http_response(url):
@@ -62,7 +140,7 @@ def check_http_response(url):
     return results
 
 def check_response_from_file(file_path):
-    output_file = "response.txt"  # File where results will be saved in the same directory
+    output_file = "response.txt"
     try:
         with open(file_path, 'r') as file:
             hosts = file.read().splitlines()
@@ -73,7 +151,6 @@ def check_response_from_file(file_path):
             outfile.write(error_message)
         return
     
-    # Open the output file in write mode so previous results are overwritten.
     with open(output_file, "w") as outfile:
         for host in track(hosts, description="Processing hosts", total=len(hosts)):
             if not host.strip():
@@ -93,13 +170,12 @@ def check_response_from_file(file_path):
                 output += f"CDN: {data['cdn']}\n"
                 output += "-" * 40 + "\n"
                 
-                # Print the result to the console.
                 console.print(output)
-                # Write the result to the file.
                 outfile.write(output)
+                outfile.flush()  # Ensures that the result is written immediately
 
 def check_ip_from_file(file_path):
-    output_file = "ip_response.txt"  # Separate file for IP results
+    output_file = "ip_response.txt"
     try:
         with open(file_path, 'r') as file:
             hosts = file.read().splitlines()
@@ -120,14 +196,11 @@ def check_ip_from_file(file_path):
             
             console.print(output)
             outfile.write(output)
+            outfile.flush()  # Ensures that the result is written immediately
 
 def display_banner():
-    # Clear the terminal.
-    console.clear()
-    # Prepare and center the banner text.
     banner_text = "[bold green]SSLABLK Checker Tool[/bold green]"
     centered_banner = Align.center(banner_text)
-    # Create a panel with the centered banner.
     panel = Panel(centered_banner, border_style="bright_blue")
     console.print(panel)
 
@@ -140,6 +213,7 @@ def display_menu():
     console.print(panel)
 
 def main():
+    display_banners()
     display_banner()
     display_menu()
     choice = Prompt.ask("Enter your choice", choices=["1", "2"], default="1")
